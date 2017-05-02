@@ -1,24 +1,25 @@
 #include "conway.h"
 
-void cgl::print_test_string() {
-    int threadnum = 0;
-    int numthreads = 0;
+cgl::ConwaysGameOfLife::ConwaysGameOfLife(size_t gridWidth, size_t gridHeight) {
 
-    #pragma omp parallel shared(numthreads), private(threadnum)
-    {
-        #ifdef _OPENMP
-        threadnum = omp_get_thread_num();
-            #pragma omp single
-            {
-                numthreads = omp_get_num_threads();
-            }
+    // Check input arguments
+    if (gridWidth > GRID_MAX_WIDTH || gridHeight > GRID_MAX_HEIGHT) {
+        throw std::logic_error(
+                "Wrong grid's dimensions. Width's interval is <0, " +
+                std::to_string(GRID_MAX_WIDTH) +
+                ">. Height's interval is <0, " +
+                std::to_string(GRID_MAX_HEIGHT) + ">.");
+    }
 
-        #endif
-        #pragma omp critical
-        {
-            std::cout << "Hello World I am, "
-                      << threadnum << " of " << numthreads << std::endl;
-        }
+    // Reserve space in memory for speedup
+    size_t gridArea = gridWidth * gridHeight;
+    m_grid.reserve(gridArea);
+    m_swapGrid.reserve(gridArea);
+
+    // Fill grids with blanks
+    for (size_t i = 0; i < gridArea; ++i) {
+        m_grid.push_back(false);
+        m_swapGrid.push_back(false);
     }
 
 }
