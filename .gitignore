@@ -1,3 +1,6 @@
+# Default CLion build-debug
+cmake-build-debug/*
+
 # Compiled Object files
 *.slo
 *.lo

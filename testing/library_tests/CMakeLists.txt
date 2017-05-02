@@ -1,0 +1,2 @@
+add_executable(ConwayLibraryTests conway_library_tests.cpp)
+target_link_libraries(ConwayLibraryTests Conway)

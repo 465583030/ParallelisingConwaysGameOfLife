@@ -1,0 +1,11 @@
+project(conway C CXX)
+
+set(CMAKE_CXX_STANDARD 11)
+
+include_directories(conway_lib)
+SET(LIB_SOURCE_FILES conway_lib/conway.cpp)
+
+add_library(Conway ${LIB_SOURCE_FILES})
+
+add_executable(ConwayApp conway_app/main.cpp)
+TARGET_LINK_LIBRARIES(ConwayApp Conway)
