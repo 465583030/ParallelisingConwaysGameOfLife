@@ -11,8 +11,8 @@ TEST_CASE("GameGrid Class Test", "[conway_lib]") {
         REQUIRE_THROWS_AS(cgol::GameGrid(1, cgol::GRID_MAX_HEIGHT + 1), std::logic_error);
     }
 
-    SECTION("Constructor From File") {
-
+    SECTION("Constructor From Raw Data") {
+        // TODO
     }
 
     SECTION("Entries Acquisition"){
