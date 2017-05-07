@@ -3,7 +3,7 @@ project(conway C CXX)
 set(CMAKE_CXX_STANDARD 11)
 
 include_directories(conway_lib)
-SET(LIB_SOURCE_FILES conway_lib/conway.cpp)
+SET(LIB_SOURCE_FILES conway_lib/conway.cpp conway_lib/game_grid.cpp conway_lib/strategies.cpp)
 
 add_library(Conway ${LIB_SOURCE_FILES})
 

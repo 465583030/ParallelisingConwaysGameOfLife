@@ -2,24 +2,25 @@
 #define CONWAY_H
 
 #include <iostream>
-#include "typedefs.h"
+#include "game_grid.h"
+#include "array"
+#include "strategies.h"
 
-#ifdef _OPENMP
-    #include <omp.h>
-#endif
 
-namespace cgl {
+namespace cgol {
 
     class ConwaysGameOfLife {
     public:
-        ConwaysGameOfLife(size_t gridWidth  = GRID_MAX_WIDTH,
-                          size_t gridHeight = GRID_MAX_HEIGHT);
+        ConwaysGameOfLife(GameGridSharedPtrT &inputGrid);
+
+        const cgol::StepsHistorySharedPtrT
+        run(const StrategyT &strategy, size_t steps);
 
     private:
-        grid_t m_grid;
-        grid_t m_swapGrid;
-        gridsAccumulator_t m_results;
+        GameGridSharedPtrT m_inputGrid;
     };
+
+    using GameSharedPtrT = std::shared_ptr<ConwaysGameOfLife>;
 }
 
 
