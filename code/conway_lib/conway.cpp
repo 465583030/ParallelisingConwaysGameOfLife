@@ -8,6 +8,13 @@ cgol::ConwaysGameOfLife::ConwaysGameOfLife(GameGridSharedPtrT &inputGrid) {
 }
 
 const cgol::StepsHistorySharedPtrT
-cgol::ConwaysGameOfLife::run(const cgol::StrategyT &strategy, size_t steps) {
+cgol::ConwaysGameOfLife::run(const cgol::StrategyT &strategy, int steps) {
+    if(strategy == nullptr) {
+        throw std::runtime_error("Error: inout strategy is nullptr");
+    }
+    if(steps < 0) {
+        throw std::runtime_error("Error: number of steps is negative");
+    }
+
     return strategy(m_inputGrid, steps);
 }

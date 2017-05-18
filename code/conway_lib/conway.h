@@ -14,7 +14,7 @@ namespace cgol {
         ConwaysGameOfLife(GameGridSharedPtrT &inputGrid);
 
         const cgol::StepsHistorySharedPtrT
-        run(const StrategyT &strategy, size_t steps);
+        run(const StrategyT &strategy, int steps);
 
     private:
         GameGridSharedPtrT m_inputGrid;

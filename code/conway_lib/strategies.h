@@ -18,10 +18,10 @@ namespace cgol {
 
 
     void calculateStep(const GameGridSharedPtrT &prev, GameGridSharedPtrT &next,
-                       size_t row, size_t col);
+                       int row, int col);
 
     const cgol::StepsHistorySharedPtrT
-    strategyCPU(const cgol::GameGridSharedPtrT &inputGrid, size_t steps);
+    strategyCPU(const cgol::GameGridSharedPtrT &inputGrid, int steps);
 }
 
 

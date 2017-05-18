@@ -12,21 +12,15 @@ cgol::GameGrid::GameGrid(size_t gridWidth, size_t gridHeight, bool randomize)
 
     // Fill grid with random entries
     // TODO: make more transparent
-    if(randomize) {
-        std::random_device rd;
-        std::mt19937 gen(rd());
-        std::uniform_int_distribution<> dis(0, 1);
-        for (size_t i = 0; i < gridArea; ++i) {
-            m_entries.push_back(dis(gen));
-        }
-    } else {
-        for (size_t i = 0; i < gridArea; ++i) {
-            m_entries.push_back(0);
-        }
-    }
+    if (randomize) initializeRandomRawEntries(m_entries, gridArea);
+    else initializeRawEntriesWithZeros(m_entries, gridArea);
 
 }
 
+cgol::GameGrid::GameGrid(const cgol::GameGrid &grid) :
+        m_width(grid.getWidth()), m_height(grid.getHeight()) {
+    m_entries = grid.getRawEntries();
+}
 
 cgol::GameGrid::GameGrid(const cgol::GridRawEntries &rawEntries,
                          size_t gridWidth, size_t gridHeight)
@@ -59,12 +53,12 @@ void cgol::GameGrid::checkGridDimensions(size_t gridWidth, size_t gridHeight) {
     }
 }
 
-GridRawEntries cgol::GameGrid::getRawEntries() const {
+cgol::GridRawEntries cgol::GameGrid::getRawEntries() const {
     return m_entries;
 }
 
-int cgol::GameGrid::getEntry(size_t row, size_t col) {
-    if (row < 0 || row > m_height || col < 0 || col > m_width) {
+int cgol::GameGrid::getEntry(int row, int col) {
+    if (row < 0 || row >= m_height || col < 0 || col >= m_width) {
         return 0;
     } else {
         size_t index = row * m_height + col;
@@ -73,9 +67,21 @@ int cgol::GameGrid::getEntry(size_t row, size_t col) {
 
 }
 
-cgol::GameGrid::GameGrid(const cgol::GameGrid &grid) :
-        m_width(grid.getWidth()), m_height(grid.getHeight()) {
-    m_entries = grid.getRawEntries();
+void cgol::GameGrid::setEntry(int row, int col, int value) {
+    if(value != 0 && value !=1) {
+        throw std::runtime_error("GameGrid can only take values 0 or 1");
+    }
+    size_t index = row * m_height + col;
+    m_entries[index] = value;
+}
+
+void cgol::GameGrid::print() {
+    for(int i = 0; i < m_height; ++i) {
+        for(int j = 0; j < m_width; ++j) {
+            std::cout << getEntry(j, i) << " ";
+        }
+        std::cout << std::endl;
+    }
 }
 
 
